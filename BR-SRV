@@ -1,0 +1,23 @@
+Интерфейс ens192
+Адрес -> 192.168.4.2/27
+Шлюз -> 192.168.4.1
+Днс -> 192.168.1.2
+br-srv.au-team.irpo
+
+Выключаем selinux
+Создание пользователя
+useradd sshuser -u 1010
+passwd sshuser P@ssw0rd
+
+Настройка ssh
+vi /etc/ssh/sshd_config
+port 2024
+AllowUsers sshuser
+Banner /etc/ssh/banner
+MaxAuthTries 2
+
+vi /etc/ssh/banner
+Authorized access only!
+
+systemctl restart ssh
+systemctl enable ssh
