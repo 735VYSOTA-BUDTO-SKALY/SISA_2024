@@ -1,0 +1,21 @@
+systemctl restart openvswitch.service
+          enable
+cd /etc/net/ifaces
+vim ens192/options
+
+BOOTPROTO=static
+TYPE=eth
+DISABLED=no
+
+mkdir ens224 и ens256 
+cp ens192/options ens224/options
+cp ens192/options ens/256 /options
+
+ovs-vsctl add-br br0
+ovs-vsctl add-port br0 ens192 trunk=418,448,478
+ovs-vsctl add-port br0 ens224 tag=418
+ovs-vsctl add-port br0 ens256 tag=448
+
+systemctl restart network 
+vim /etc/net/sysctl.conf
+net.ipv4.ip_forward=1
